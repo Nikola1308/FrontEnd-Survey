@@ -1,22 +1,24 @@
 import React,{Component} from 'react'
+import axios from 'axios'
 import Questions from '../Questions/Questions'
 
-class InfoAboutNewSurvey extends Component{
+
+class CreatingNewSurvey extends Component{
     constructor(props){
         super(props)
         this.state = {
-            surveyTitle:'',
-            surveyDescription:'',
+            titleForNewSurvey:'',
+            descriptionForNewSurvey:'',
             questions :{
                
             }
         }
-    }    
+    }  
     handerSurveyTitle=(e)=>{
-        this.setState({surveyTitle:e.target.value})
+        this.setState({titleForNewSurvey:e.target.value})
     }
     handlerSurveyDescription=(e)=>{
-        this.setState({surveyDescription:e.target.value})
+        this.setState({descriptionForNewSurvey:e.target.value})
     }
     handlerUpdateArray=(questionKey,questionTitle)=>{     
          this.setState({
@@ -29,26 +31,37 @@ class InfoAboutNewSurvey extends Component{
             }
         })
     }
-    handlerUpdateArrayWithAnwers=(anwersState,questionKey)=>{
+    handlerUpdateArrayWithAnwers=(anwersState,questionKeys)=>{
         this.setState({
-            questionKey:{
+            questions:{
                 ...this.state.questions,
-                [questionKey]:{
-                    ...this.state.questions[questionKey],
-                    titleAnswer:anwersState.answerArray
+                [questionKeys]:{
+                    ...this.state.questions[questionKeys],
+                    answers:anwersState.answerArray
                 }
             }
         })
-        console.log(anwersState.answerArray)
-        console.log('.!.',{questionKey})
     }
+    hanleSubmit = (e)=>{
+        e.preventDefault()
+        const newSurvay = {
+            survay:this.state
+        }
+        axios.post('/survey/wholenewsurvey/',{newSurvay})
+        .then(res=>{
+            console.log(res.data)
+        })
+        console.log(newSurvay)
+
+    }
+
     addNewQuestion=(e)=>{
         e.preventDefault()
         let randomKey = Math.random()
         let newQuestionArr = {...this.state.questions,...{[randomKey]:{id:randomKey,title : ''}}}
         this.setState({questions:newQuestionArr})
     }
-
+    
     render(){
         console.log(this.state)
         return(
@@ -69,8 +82,9 @@ class InfoAboutNewSurvey extends Component{
                         return  <Questions
                                 key={key}
                                 keyOfQuestion={item}
-                                onChangeInput={this.handlerUpdateArray}
-                                onAddAnswer={this.handlerUpdateArrayWithAnwers}/>
+                                onChangeInput={this.handlerUpdateArray} 
+                                onAddAnswer={this.handlerUpdateArrayWithAnwers}
+                                />
                     })
                 }        
                 </div>
@@ -78,11 +92,12 @@ class InfoAboutNewSurvey extends Component{
                      <button onClick={this.addNewQuestion} >Add Question</button>
                 </div>
                 <div>
-                    <button>Submit Survey</button>
+                    <button onClick={this.hanleSubmit}>Submit Survey</button>
                 </div>               
             </div>
         )
     }
 }
 
-export default InfoAboutNewSurvey
+
+export default CreatingNewSurvey

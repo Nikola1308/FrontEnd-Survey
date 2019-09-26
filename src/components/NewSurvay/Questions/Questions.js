@@ -14,13 +14,13 @@ class Question extends Component{
    
     handlerQuestionTittle=(e)=>{    
         e.preventDefault()  
+       
         this.setState({questionTitle:e.target.value})
         this.props.onChangeInput(this.props.keyOfQuestion,e.target.value)    
             
     }
 
     handlerUpdateAnswerArray=(questionKeys,answerTitle)=>{
-       // console.log(answerTitle)
         this.setState({
             answerArray:{
                 ...this.state.answerArray,
@@ -29,9 +29,10 @@ class Question extends Component{
                     titleAnswer:answerTitle
                 }
             }
-            
+        },()=>{
+            this.props.onAddAnswer(this.state,this.props.keyOfQuestion)
         })
-        this.props.onAddAnswer(this.state,this.props.keyOfQuestion)
+        
         
     }   
     addNewAnswer=()=>{

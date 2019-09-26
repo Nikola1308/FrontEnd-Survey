@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import SideBar from '../SideBar/SideBar'
-import InfoAboutNewSurvey from './InfoAboutNewSurvey/InfoAboutNewSurvey'
+import CreatingNewSurvey from './CreatingNewSurvey/CreatingNewSurvey'
 
 
 class NewSurvey extends Component{
@@ -8,7 +8,7 @@ class NewSurvey extends Component{
         return(
             <div>
                 <div>
-                    <InfoAboutNewSurvey/>
+                    <CreatingNewSurvey/>
                 </div>
                <div>
                     <SideBar/>
