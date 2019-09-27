@@ -6,11 +6,13 @@ import SideBar from '../SideBar/SideBar'
 import SurveyList from './SurveyList/SurveyList'
 import WholeSurvey from './WholeSurvey/WholeSurvey'
 
+
 class SurvayPage extends Component{
     state = {
         surveyList:[],
         isPrewSelected:false,
-        surveyPrew:null
+        surveyPrew:null,
+        displaySurveyModal:false
     }
     componentDidMount(){
         axios.get('/surveys')
@@ -36,6 +38,12 @@ class SurvayPage extends Component{
                 }
             })
     }
+    showModal = () =>{
+        this.setState({displaySurveyModal:true})
+    }
+    hideModal = () =>{
+        this.setState({displaySurveyModal:false,isPrewSelected:false})
+    }
     
     render(){
         let titles = []
@@ -45,7 +53,8 @@ class SurvayPage extends Component{
                titleForNewSurvey={key.titleForNewSurvey} 
                key={index}
                clicked={()=>this.postClickedHandler(key._id)}
-               previewsurvey={()=>{this.previewsurveyHandler(key._id)}}/>
+               previewsurvey={()=>{this.previewsurveyHandler(key._id)}}
+               showModal={this.showModal}/>
             })
            
         }
@@ -61,7 +70,9 @@ class SurvayPage extends Component{
             <div>
                 <h2>All Surveys</h2> 
                 {titles}            
-               {this.state.isPrewSelected && <WholeSurvey surveyPrew={this.state.surveyPrew}/>} 
+               {this.state.isPrewSelected &&
+                <WholeSurvey surveyPrew={this.state.surveyPrew} 
+                hideModal={this.hideModal}/>} 
             </div>
         </div>
         )
