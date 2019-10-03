@@ -9,8 +9,8 @@ class WholeSurvey extends Component{
             <div className="modal">
             <div className="modal-survey">
                 <div>
-                    <h2>{this.props.surveyPrew.descriptionForNewSurvey}</h2>
-                    <p>{this.props.surveyPrew.titleForNewSurvey}</p>
+                    <h2>Title For Survey: {this.props.surveyPrew.titleForNewSurvey}</h2>
+                    <p>Description For Survey: {this.props.surveyPrew.descriptionForNewSurvey}</p>
                     <SurveyQuestion previewsurvey={this.props.surveyPrew}/>
                 </div>
                 <button onClick={this.props.hideModal}>Close SurveyPreview</button>

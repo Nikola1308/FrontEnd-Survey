@@ -14,7 +14,7 @@ class SurveyQuestion extends Component{
                 Questions :
                     <ul>
                         {questionsArray.map((questionArray)=>{
-                            return <li key={questionArray._id}>{questionArray.questionTitle}
+                            return <li key={questionArray._id}>Question Title: {questionArray.questionTitle}
                             <SurveyAnswer previewsurveys={questionArray}
                             previewsurveyskey={questionArray._id}/>
                             </li>

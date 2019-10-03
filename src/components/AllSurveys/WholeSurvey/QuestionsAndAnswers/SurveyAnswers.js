@@ -11,7 +11,7 @@ class SurveyAnswer extends Component{
         
         return(
             <div>
-                <div>Answers:</div>
+                <div>Answers: </div>
                 <ul>
                     {answersArray.map((answerArray,index)=>{
                         return <li key={index}>{answerArray}</li>

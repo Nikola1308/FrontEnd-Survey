@@ -17,7 +17,8 @@ class SurvayPage extends Component{
     componentDidMount(){
         axios.get('/surveys')
         .then(response=>{          
-            this.setState({surveyList:response.data})         
+            this.setState({surveyList:response.data})    
+            console.log('aaaa')     
         })
         
     }

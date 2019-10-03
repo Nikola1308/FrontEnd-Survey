@@ -1,6 +1,9 @@
 import React,{Component} from 'react'
 import axios from 'axios'
 import Questions from '../Questions/Questions'
+import {withRouter} from 'react-router-dom';
+
+import SurveyModal from './CreatingSurveyModal/CreatingSurveyModal'
 
 
 class CreatingNewSurvey extends Component{
@@ -11,7 +14,8 @@ class CreatingNewSurvey extends Component{
             descriptionForNewSurvey:'',
             questions :{
                
-            }
+            },
+            modal:false
         }
     }  
     handerSurveyTitle=(e)=>{
@@ -47,12 +51,13 @@ class CreatingNewSurvey extends Component{
         const newSurvay = {
             survay:this.state
         }
+        
         axios.post('/survey/wholenewsurvey/',{newSurvay})
         .then(res=>{
             console.log(res.data)
+            this.props.history.push('/surveyspage')            
         })
-        console.log(newSurvay)
-
+        
     }
 
     addNewQuestion=(e)=>{
@@ -61,9 +66,14 @@ class CreatingNewSurvey extends Component{
         let newQuestionArr = {...this.state.questions,...{[randomKey]:{id:randomKey,title : ''}}}
         this.setState({questions:newQuestionArr})
     }
+    showModal=()=>{
+        this.setState({modal:true})
+    }
+    hideModal=()=>{
+        this.setState({modal:false})
+    }
     
-    render(){
-        console.log(this.state)
+    render(){    
         return(
             <div>
                 <div>
@@ -89,15 +99,22 @@ class CreatingNewSurvey extends Component{
                 }        
                 </div>
                 <div>
-                     <button onClick={this.addNewQuestion} >Add Question</button>
-                </div>
+                     <button onClick={this.addNewQuestion}>Add Question</button>
+                </div> 
                 <div>
-                    <button onClick={this.hanleSubmit}>Submit Survey</button>
-                </div>               
+                   <button onClick={this.showModal}>Continue</button> 
+                   {
+                      this.state.modal && <SurveyModal 
+                      wholesurvey={this.state} 
+                      hideModal={this.hideModal}
+                      submitSurevey={this.hanleSubmit}/>
+                   }
+                   
+                </div>             
             </div>
         )
     }
 }
 
 
-export default CreatingNewSurvey
+export default withRouter(CreatingNewSurvey)
