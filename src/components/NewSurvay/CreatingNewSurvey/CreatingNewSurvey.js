@@ -24,13 +24,13 @@ class CreatingNewSurvey extends Component{
     handlerSurveyDescription=(e)=>{
         this.setState({descriptionForNewSurvey:e.target.value})
     }
-    handlerUpdateArray=(questionKey,questionTitle)=>{     
-         this.setState({
+    handlerUpdateArray=(questionKey,questionTitle)=>{    
+        this.setState({
             questions : {
                 ...this.state.questions,
                 [questionKey] : {
-                   ...this.state.questions[questionKey],
-                   title : questionTitle
+                    ...this.state.questions[questionKey],
+                    title : questionTitle
                 }
             }
         })
@@ -51,10 +51,8 @@ class CreatingNewSurvey extends Component{
         const newSurvay = {
             survay:this.state
         }
-        
         axios.post('/survey/wholenewsurvey/',{newSurvay})
         .then(res=>{
-            console.log(res.data)
             this.props.history.push('/surveyspage')            
         })
         
@@ -72,8 +70,16 @@ class CreatingNewSurvey extends Component{
     hideModal=()=>{
         this.setState({modal:false})
     }
+   
+    removeQuestion = (deleteQuestionIndex) =>{
+        let clone = {...this.state.questions}
+        delete clone[deleteQuestionIndex]
+        let newClone={...clone}
+        this.setState({questions:newClone})
+       
+    }
     
-    render(){    
+    render(){   
         return(
             <div>
                 <div>
@@ -88,12 +94,17 @@ class CreatingNewSurvey extends Component{
                 </div>
                 <div>
                     {
-                    Object.keys(this.state.questions).map((item,key)=>{                       
+                    Object.keys(this.state.questions).map((questionKey,index)=>{
+                                              
                         return  <Questions
-                                key={key}
-                                keyOfQuestion={item}
+                                // question={this.state.questions[questionKey]}
+                                key={index}
+                                keyOfQuestion={questionKey}
                                 onChangeInput={this.handlerUpdateArray} 
                                 onAddAnswer={this.handlerUpdateArrayWithAnwers}
+                                deleteQuestion={this.removeQuestion}
+                                questionTitle = {this.state.questions[questionKey].title || ''}
+                                questionAnswer={(this.state.questions[questionKey].answers && this.state.questions[questionKey].answers) || {}}
                                 />
                     })
                 }        

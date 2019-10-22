@@ -3,10 +3,19 @@ import React,{Component}from 'react'
 
 class Answer extends Component{
 
-    state = { 
-        answerTitle: ''
+    constructor(props) {
+        super(props);
+
+        this.state = { 
+            answerTitle: this.props.answerTitle || ''
+        }
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.answerTitle !== this.props.answerTitle) {
+            this.setState({answerTitle: this.props.answerTitle})
+        }   
+    }
     handleAnswerTitle=(e)=>{
         e.preventDefault()  
         this.setState({answerTitle:e.target.value})
@@ -24,7 +33,7 @@ class Answer extends Component{
                         value={this.state.answerTitle}
                         onChange={this.handleAnswerTitle}                        
                     />
-                    <button>X</button>
+                    <button onClick={(e) => { e.preventDefault(); this.props.removeAnswer(this.props.answerId) }}>X</button>
                 </form>
             </div>
         )

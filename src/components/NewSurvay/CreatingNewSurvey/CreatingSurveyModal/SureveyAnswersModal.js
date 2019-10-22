@@ -9,8 +9,9 @@ class AnswersModal extends Component{
              console.log('ERROR Enter answers for question')  
         }else {
              answersArray = Object.keys(answers).map((answer)=>{
-                if(typeof answers[answer] === 'object')
+                if(typeof answers[answer] === 'object'){
                 return answers[answer]
+                }
            }) 
         }
         
