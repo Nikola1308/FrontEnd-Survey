@@ -8,7 +8,7 @@ export const oauthGoogle = data => {
         })
         dispatch({
             type:AUTH_SIGN_UP,
-            payload:res.data.token
+            payload:res.data.token,
         });
         localStorage.setItem('JWT_TOKEN',res.data.token)
     }

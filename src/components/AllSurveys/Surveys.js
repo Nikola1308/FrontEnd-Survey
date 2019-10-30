@@ -6,6 +6,10 @@ import SideBar from '../SideBar/SideBar'
 import SurveyList from './SurveyList/SurveyList'
 import WholeSurvey from './WholeSurvey/WholeSurvey'
 
+import './Surveys.css'
+import '../SideBar/SideBar.css'
+
+
 
 class SurvayPage extends Component{
     state = {
@@ -59,20 +63,28 @@ class SurvayPage extends Component{
            
         }
         return(
-        <div>
-            <div>
-                <Link to="/newsurvey">Create new Survay</Link>                
+        <div className="surveyCointainer">
+            <div style={{width:"15%",textAlign:'center'}}>
+                <div style={{width:"100%",height:"100%"}}>
+                    <SideBar />
+                </div>
             </div>
-            <div>
-                Welcome to Survays
-                <SideBar/>
-            </div>
-            <div>
-                <h2>All Surveys</h2> 
-                {titles}            
-               {this.state.isPrewSelected &&
-                <WholeSurvey surveyPrew={this.state.surveyPrew} 
-                hideModal={this.hideModal}/>} 
+            <div className="surveyContainerSurveys">
+                <div>
+                    <h4>Welcome to Survays</h4>
+                    <Link to="/newsurvey">Create new Survay</Link>                
+                </div>
+                <div className="surveyContainerAllSurveys">
+                    <div style={{textAlign:"center"}}>
+                         <h2>All Surveys</h2> 
+                    </div>
+                    <div className="surveyContainerForOneSurvey">
+                        {titles}            
+                        {this.state.isPrewSelected &&
+                        <WholeSurvey surveyPrew={this.state.surveyPrew} 
+                        hideModal={this.hideModal}/>} 
+                    </div>
+                </div>
             </div>
         </div>
         )

@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import axios from 'axios'
 import Questions from '../Questions/Questions'
 import {withRouter} from 'react-router-dom';
+import jwtDecode from 'jwt-decode'
 
 import SurveyModal from './CreatingSurveyModal/CreatingSurveyModal'
 
@@ -10,6 +11,7 @@ class CreatingNewSurvey extends Component{
     constructor(props){
         super(props)
         this.state = {
+            user:null,
             titleForNewSurvey:'',
             descriptionForNewSurvey:'',
             questions :{
@@ -17,7 +19,10 @@ class CreatingNewSurvey extends Component{
             },
             modal:false
         }
-    }  
+    } 
+    componentDidMount(){
+       this.halnderforUpdatingmail()
+    } 
     handerSurveyTitle=(e)=>{
         this.setState({titleForNewSurvey:e.target.value})
     }
@@ -46,6 +51,11 @@ class CreatingNewSurvey extends Component{
             }
         })
     }
+    halnderforUpdatingmail = () => {
+        let decode = jwtDecode(localStorage.getItem('JWT_TOKEN'))
+        this.setState({user:decode.email})
+    }
+    
     hanleSubmit = (e)=>{
         e.preventDefault()
         const newSurvay = {
