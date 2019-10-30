@@ -13,7 +13,7 @@ class SignIn extends Component{
         this.responseGoogle = this.responseGoogle.bind(this)
     }
    
-    async responseGoogle(res){        
+    async responseGoogle(res){     
         await this.props.oauthGoogle(res.accessToken)
         this.props.history.push('/surveyspage')
     }

@@ -1,0 +1,36 @@
+.sidebar{
+    width: 100%;
+    height: 100%;
+}
+.ulSideBarStyle{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background-color:rgb(50, 49, 53);
+}
+.firstpartsidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+.secondpratsidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    margin-bottom: 10px;
+}
+.linkstylesidebar{
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    padding: 15px 0;
+}
+.linkstylesidebar:hover{
+    color: black;
+    background-color: white;
+}

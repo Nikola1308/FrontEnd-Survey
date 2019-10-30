@@ -12,11 +12,14 @@ class SurveyQuestion extends Component{
             <div>
                 <div>
                 Questions :
-                    <ul>
+                    <ul >
                         {questionsArray.map((questionArray)=>{
-                            return <li key={questionArray._id}>Question Title: {questionArray.questionTitle}
+                            return <li key={questionArray._id} 
+                            style={{border:"1px solid white",backgroundColor:"black",color:"white",
+                            }}>Question Title: {questionArray.questionTitle}
                             <SurveyAnswer previewsurveys={questionArray}
-                            previewsurveyskey={questionArray._id}/>
+                            previewsurveyskey={questionArray._id}
+                            />
                             </li>
                         })}
                     </ul>
